@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prototype Boutique - Fan site (Non affilié)</title>
+  <meta name="description" content="Prototype de boutique fan - vente de merch et guides. Site non affilié à Roblox."/>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#111827; --muted:#9aa9c7; --accent:#ff5a5f; --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#071024 0%,#0b1220 100%);color:#e6eef8;min-height:100vh;display:flex;flex-direction:column}
+    header{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:var(--glass);backdrop-filter:blur(6px)}
+    .brand{font-weight:700;letter-spacing:0.4px}
+    .tag{font-size:.85rem;color:var(--muted);margin-left:.5rem;font-weight:600}
+    nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-weight:600}
+    .container{max-width:1100px;margin:2rem auto;padding:1rem;width:95%}
+    .hero{display:flex;gap:2rem;align-items:center;justify-content:space-between;padding:2rem;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    .hero h1{margin:0;font-size:2rem}
+    .hero p{margin:.6rem 0;color:var(--muted)}
+    .btn{background:var(--accent);border:none;padding:.7rem 1rem;border-radius:8px;color:white;font-weight:700;cursor:pointer}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1.25rem}
+    .card{background:var(--card);padding:1rem;border-radius:10px;border:1px solid rgba(255,255,255,0.03);}
+    .product img{width:100%;height:140px;object-fit:cover;border-radius:8px;background:linear-gradient(90deg,#222,#111)}
+    .product h3{margin:.6rem 0 .25rem}
+    .price{font-weight:800;color:var(--accent)}
+    .small{font-size:.9rem;color:var(--muted)}
+    .cart{position:fixed;right:1.25rem;bottom:1.25rem;background:linear-gradient(180deg,#061021,#07122a);padding:.8rem;border-radius:12px;border:1px solid rgba(255,255,255,0.04);min-width:260px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    .cart h4{margin:0 0 .5rem}
+    .cart-list{max-height:220px;overflow:auto;margin-bottom:.6rem}
+    .cart-row{display:flex;justify-content:space-between;gap:.5rem;padding:.3rem 0;border-bottom:1px dashed rgba(255,255,255,0.02);align-items:center}
+    .qty{display:flex;gap:.25rem;align-items:center}
+    .link-like{background:none;border:0;color:var(--accent);cursor:pointer;font-weight:700}
+    footer{margin-top:auto;padding:2rem;background:var(--glass-2);color:var(--muted);font-size:.9rem}
+    .legal{background:rgba(255,255,255,0.02);padding:1rem;border-radius:8px;margin-top:1rem;color:var(--muted)}
+    /* responsive */
+    @media (max-width:720px){.hero{flex-direction:column;align-items:flex-start}.cart{right:.75rem;left:.75rem}}
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center">
+      <div class="brand">FanShop<span class="tag">NON-AFFILIÉ</span></div>
+    </div>
+    <nav aria-label="navigation">
+      <a href="#accueil">Accueil</a>
+      <a href="#boutique">Boutique</a>
+      <a href="#comment">Comment acheter</a>
+      <a href="#legal">Mentions légales</a>
+    </nav>
+  </header>
+
+  <main class="container" id="accueil">
+    <section class="hero" aria-labelledby="hero-title">
+      <div style="max-width:60%">
+        <h1 id="hero-title">Boutique Fan — Merch & Guides</h1>
+        <p class="small">Prototype de boutique thématique. Ce site n'est pas affilié à Roblox. Ici tu peux acheter des produits dérivés, guides et cartes cadeaux officielles (simulation), de façon transparente.</p>
+        <p style="margin:.8rem 0"><button class="btn" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})">Voir la boutique</button></p>
+        <div class="legal">
+          <strong>Avertissement :</strong> Nous ne vendons **pas** de Robux. Toute référence à Roblox est à titre indicatif. Roblox™ est une marque déposée de Roblox Corporation.
+        </div>
+      </div>
+      <div style="text-align:right;max-width:35%">
+        <div style="background:linear-gradient(180deg,#0b2036,#071022);padding:1rem;border-radius:8px">
+          <p style="margin:0;font-weight:700">Offres légales</p>
+          <p class="small" style="margin:.4rem 0">Cartes cadeaux et merch officiels vendus par des revendeurs agréés (simulation)</p>
+          <p style="margin:.6rem 0"><button class="btn" onclick="openCart()">Voir le panier</button></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="boutique" style="margin-top:1.75rem">
+      <h2>La boutique</h2>
+      <p class="small">Produits disponibles — tous fictifs pour la démonstration.</p>
+      <div class="grid" id="products">
+        <!-- Products inserted by JS -->
+      </div>
+    </section>
+
+    <section id="comment" style="margin-top:1.75rem">
+      <h2>Comment acheter en toute sécurité</h2>
+      <ol class="small">
+        <li>Vérifie toujours que le site est sécurisé (https) et que le vendeur est légitime.</li>
+        <li>Achete des cartes cadeaux auprès de revendeurs officiels ou directement via la plateforme Roblox.</li>
+        <li>Ne partage jamais ton mot de passe. Nous n'avons **jamais** besoin de tes identifiants Roblox.</li>
+      </ol>
+    </section>
+
+    <section id="legal" style="margin-top:1.75rem;margin-bottom:2rem">
+      <h2>Mentions légales & Transparence</h2>
+      <div class="card legal">
+        <p>Ce site est un <strong>projet fan/prototype</strong> destiné à démontrer l'interface d'une boutique. Il n'est pas affilié, approuvé ou sponsorisé par Roblox Corporation. Toute transaction réelle doit utiliser des canaux officiels et vérifier la légitimité du vendeur.</p>
+        <p>Les images et éléments visuels présents ici sont des exemples. Ne fournissez jamais d'informations sensibles à un site non vérifié.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- cart -->
+  <div class="cart" id="cart" style="display:none" aria-live="polite">
+    <h4>Panier</h4>
+    <div class="cart-list" id="cartList"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div><strong>Total :</strong> <span id="cartTotal">0€</span></div>
+      <div>
+        <button class="btn" onclick="checkout()">Payer</button>
+      </div>
+    </div>
+    <p style="margin-top:.6rem;font-size:.85rem;color:var(--muted)">Simulation de paiement — aucun prélèvement.</p>
+  </div>
+
+  <script>
+    // Sample products (merch, guides, cartes cadeaux officielles - simulation)
+    const products = [
+      { id: 'tshirt1', title: 'T-shirt "Fan"', price: 14.99, desc: 'T-shirt fan premium (livraison simulée).', img: '' },
+      { id: 'sticker1', title: 'Pack stickers', price: 4.50, desc: '6 stickers thématiques.', img: '' },
+      { id: 'guide1', title: 'Guide - Débuter sur la plateforme', price: 6.00, desc: 'Guide PDF (tutoriel complet).', img: '' },
+      { id: 'card1', title: 'Carte cadeau - 10€ (simulation)', price: 9.00, desc: 'Carte cadeau officielle vendue par revendeur (simulation).', img: '' }
+    ];
+
+    // In-memory cart
+    const cart = {};
+
+    // Utilities
+    function formatPrice(v){ return v.toFixed(2).replace('.',',') + '€' }
+
+    function renderProducts(){
+      const container = document.getElementById('products');
+      container.innerHTML = '';
+      products.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'card product';
+        el.innerHTML = `
+          <img alt="${p.title}" src="data:image/svg+xml;utf8,${encodeURIComponent(svgPlaceholder(p.title))}" />
+          <h3>${p.title}</h3>
+          <div class="small">${p.desc}</div>
+          <div style="margin-top:.6rem;display:flex;justify-content:space-between;align-items:center">
+            <div class="price">${formatPrice(p.price)}</div>
+            <button class="btn" onclick="addToCart('${p.id}')">Ajouter</button>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    function svgPlaceholder(title){
+      const bg = encodeURIComponent('#0b1220');
+      return `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><rect width='100%' height='100%' fill='${bg}'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23cde0ff' font-size='20'>${title}</text></svg>`;
+    }
+
+    function addToCart(id){
+      const p = products.find(x=>x.id===id);
+      if(!p) return;
+      if(!cart[id]) cart[id] = { ...p, qty: 0 };
+      cart[id].qty++;
+      renderCart();
+      openCart();
+    }
+
+    function renderCart(){
+      const list = document.getElementById('cartList');
+      list.innerHTML = '';
+      let total = 0;
+      Object.values(cart).forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'cart-row';
+        row.innerHTML = `
+          <div style="flex:1">
+            <div style="font-weight:700">${item.title}</div>
+            <div class="small">${formatPrice(item.price)} x ${item.qty}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <div class="qty">
+              <button class="link-like" onclick="changeQty('${item.id}', -1)">−</button>
+              <div style="min-width:20px;text-align:center">${item.qty}</div>
+              <button class="link-like" onclick="changeQty('${item.id}', 1)">+</button>
+            </div>
+            <button class="link-like" onclick="removeItem('${item.id}')">Suppr</button>
+          </div>
+        `;
+        list.appendChild(row);
+        total += item.price * item.qty;
+      });
+      document.getElementById('cartTotal').textContent = formatPrice(total);
+      document.getElementById('cart').style.display = Object.keys(cart).length ? 'block' : 'none';
+    }
+
+    function changeQty(id, delta){
+      if(!cart[id]) return;
+      cart[id].qty += delta;
+      if(cart[id].qty <= 0) delete cart[id];
+      renderCart();
+    }
+    function removeItem(id){ delete cart[id]; renderCart(); }
+    function openCart(){ document.getElementById('cart').style.display = 'block'; window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); }
+
+    function checkout(){
+      // Simulated checkout modal (no real processing)
+      if(!Object.keys(cart).length){ alert('Ton panier est vide.'); return; }
+      const total = Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0).toFixed(2);
+      const confirmed = confirm(`Simulation de paiement. Total : ${formatPrice(parseFloat(total))}. Confirmer ?`);
+      if(confirmed){
+        alert('Paiement simulé ok — merci pour ta commande (simulation). Aucune transaction réelle n'a été effectuée.');
+        // clear cart
+        Object.keys(cart).forEach(k=>delete cart[k]);
+        renderCart();
+      }
+    }
+
+    // init
+    renderProducts();
+  </script>
+
+  <footer>
+    <div style="max-width:1100px;margin:0 auto;padding:0 1rem">
+      <p><strong>Remarque importante :</strong> Ce site est un prototype. Il a pour but de montrer une interface de boutique. Il ne vend pas de Robux. Toute évocation de Roblox est informative. Roblox™ est une marque déposée de Roblox Corporation.</p>
+      <p>Tu veux déployer ce prototype sur GitHub Pages ? Dis-le moi, je te fournis les étapes exactes et le fichier prêt à téléverser.</p>
+    </div>
+  </footer>
+</body>
+</html>
